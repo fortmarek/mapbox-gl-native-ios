@@ -2931,12 +2931,14 @@ public:
     
     // Places
     NSArray *sortedPlaceFeatures = nil;
-    
+    NSArray *visiblePlaceFeatures;
     if (!_sortedVisiblePlaceElements) {
         
         MGL_SIGNPOST_BEGIN(self.log, signpost, "gae/query-places");
         NSArray *placeStyleLayerIdentifiers = [self.style.placeStyleLayers valueForKey:@"identifier"];
-        NSArray *visiblePlaceFeatures = [self visibleFeaturesInRect:bounds inStyleLayersWithIdentifiers:[NSSet setWithArray:placeStyleLayerIdentifiers]];
+        
+        // TODO:
+        /*NSArray **/visiblePlaceFeatures = [self visibleFeaturesInRect:bounds inStyleLayersWithIdentifiers:[NSSet setWithArray:placeStyleLayerIdentifiers]];
         MGL_SIGNPOST_END(self.log, signpost, "gae/query-places");
 
         
@@ -2970,7 +2972,6 @@ public:
     NSUInteger numberOfPlaces = _sortedVisiblePlaceElements.count;
     
     // Roads
-    
     if (!_sortedVisibleRoadElements) {
         MGL_SIGNPOST_BEGIN(self.log, signpost, "gae/query-roads");
         NSArray *roadStyleLayerIdentifiers = [self.style.roadStyleLayers valueForKey:@"identifier"];
@@ -3027,7 +3028,8 @@ public:
     {
         MGL_SIGNPOST_BEGIN(self.log, signpost, "gae/build-elements");
 
-        BOOL compassViewVisible       = self.compassView.alpha > 0.0;
+        // TODO: Previously, accessibility considered the compass always visible
+        BOOL compassViewVisible       = YES;//self.compassView.alpha > 0.0;
         BOOL userLocationViewVisible  = self.userLocationAnnotationView && !self.userLocationAnnotationView.isHidden;
         BOOL attributionButtonVisible = self.attributionButton && !self.attributionButton.isHidden;
         
@@ -3081,8 +3083,9 @@ public:
         if (numberOfPlaces > 0) {
             NSMutableArray *placesArray = [NSMutableArray arrayWithCapacity:4];
             NSMutableSet *placesSet = [NSMutableSet setWithCapacity:numberOfPlaces];
-            
-            for (id <MGLFeature> placeFeature in sortedPlaceFeatures) {
+            // TODO:
+//          for (id <MGLFeature> placeFeature in sortedPlaceFeatures){
+            for (id <MGLFeature> placeFeature in visiblePlaceFeatures.reverseObjectEnumerator){
                 NSString *name = [placeFeature attributeForKey:@"name"];
                 if (![placesSet containsObject:name]) {
                     [placesArray addObject:name];
