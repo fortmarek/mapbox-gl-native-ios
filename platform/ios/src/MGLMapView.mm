@@ -2931,14 +2931,12 @@ public:
     
     // Places
     NSArray *sortedPlaceFeatures = nil;
-    NSArray *visiblePlaceFeatures;
     if (!_sortedVisiblePlaceElements) {
         
         MGL_SIGNPOST_BEGIN(self.log, signpost, "gae/query-places");
         NSArray *placeStyleLayerIdentifiers = [self.style.placeStyleLayers valueForKey:@"identifier"];
         
-        // TODO:
-        /*NSArray **/visiblePlaceFeatures = [self visibleFeaturesInRect:bounds inStyleLayersWithIdentifiers:[NSSet setWithArray:placeStyleLayerIdentifiers]];
+        NSArray *visiblePlaceFeatures = [self visibleFeaturesInRect:bounds inStyleLayersWithIdentifiers:[NSSet setWithArray:placeStyleLayerIdentifiers]];
         MGL_SIGNPOST_END(self.log, signpost, "gae/query-places");
 
         
