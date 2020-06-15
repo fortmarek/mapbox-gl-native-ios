@@ -71,14 +71,11 @@ void writeDictionaryToFile(NSDictionary *info, NSString *filename);
         
     NSString *filename = @"testQueryRoadsAroundDC";
 
-#if 0
     writeDictionaryToFile(accessibilityDictionary, [NSString stringWithFormat:@"%@.json", filename]);
-#else
     
     NSDictionary *expected = readAccessibilityDictionaryFromBundle(filename, [NSBundle bundleForClass:[self class]]);
     XCTAssertNotNil(expected);
     [self assertAccessibilityDictionary:accessibilityDictionary isEqualToDictionary:expected];
-#endif
     
     accessibilityDictionary = nil;
 }
