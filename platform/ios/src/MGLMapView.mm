@@ -412,10 +412,10 @@ public:
 
 - (void)setStyleURL:(nullable NSURL *)styleURL
 {
-    if ( ! styleURL)
-    {
-        styleURL = [MGLStyle streetsStyleURLWithVersion:MGLStyleDefaultVersion];
-    }
+    // if ( ! styleURL)
+    // {
+        // styleURL = [MGLStyle streetsStyleURLWithVersion:MGLStyleDefaultVersion];
+    // }
     MGLLogDebug(@"Setting styleURL: %@", styleURL);
     styleURL = styleURL.mgl_URLByStandardizingScheme;
     self.style = nil;
