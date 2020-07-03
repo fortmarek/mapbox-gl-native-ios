@@ -412,14 +412,12 @@ public:
 
 - (void)setStyleURL:(nullable NSURL *)styleURL
 {
-    // if ( ! styleURL)
-    // {
-        // styleURL = [MGLStyle streetsStyleURLWithVersion:MGLStyleDefaultVersion];
-    // }
-    MGLLogDebug(@"Setting styleURL: %@", styleURL);
-    styleURL = styleURL.mgl_URLByStandardizingScheme;
-    self.style = nil;
-    self.mbglMap.getStyle().loadURL([[styleURL absoluteString] UTF8String]);
+    if (styleURL) {
+        MGLLogDebug(@"Setting styleURL: %@", styleURL);
+        styleURL = styleURL.mgl_URLByStandardizingScheme;
+        self.style = nil;
+        self.mbglMap.getStyle().loadURL([[styleURL absoluteString] UTF8String]);
+    }
 }
 
 - (IBAction)reloadStyle:(__unused id)sender {
